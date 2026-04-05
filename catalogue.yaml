@@ -3,37 +3,38 @@
   become: yes
   tasks:
   - name: disable default nodejs  
-    ansible.builtin.command: dnf module disable nodejs -y
+    ansible.builtin.command: dnf module disable nodejs -y # so for disable there is any moduole in ansible  so  we use this command module because if there in no any builin module in ansible then we use this command module to run it 
 
   - name: enable nodejs:20
-    ansible.builtin.command: dnf module enable nodejs:20 -y
+    ansible.builtin.command: dnf module enable nodejs:20 -y # same as above we use command module 
 
   - name: Install nodejs
-    ansible.builtin.dnf:
+    ansible.builtin.dnf: # for installation we use dnf if its run by redhat so we use dnf 
       name: nodejs
       state: present
       
   - name: create app directory
-    ansible.builtin.file:
+    ansible.builtin.file: # creating a file module
       path: /app
       state: directory
 
   - name: create roboshop system user
-    ansible.builtin.user:
+    ansible.builtin.user: # to creat system user we use this command 
+    #manual line is : useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
       name: roboshop
       shell: /sbin/nologin
       system: true
       home: /app
 
   - name: download catalogue code
-    ansible.builtin.get_url:
+    ansible.builtin.get_url: its for download the url in /tmp/catalogue.zip
       url: https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
       dest: /tmp/catalogue.zip
 
   # this module thinks file exist on ansible control server, needs to extract on to remote machine
   # remote_src: yes means files already exist in catalogue server
   - name: extract catalogue code
-    ansible.builtin.unarchive:
+    ansible.builtin.unarchive: #  we use this to unzip the file
       src: /tmp/catalogue.zip
       dest: /app
       remote_src: yes
@@ -44,7 +45,7 @@
 
   - name: copy catalogue service to system directory
     ansible.builtin.copy:
-      src: catalogue.service
+      src: catalogue.services
       dest: /etc/systemd/system/catalogue.service
 
   - name: systemctl deamon reload
@@ -58,7 +59,7 @@
       enabled: yes
 
   - name: copy mongodb repo
-    ansible.builtin.copy:
+    ansible.builtin.copy: # copy module to copy one from another
       src: mongo.repo
       dest: /etc/yum.repos.d/mongo.repo
 
@@ -67,15 +68,15 @@
       name: mongodb-mongosh
       state: present
 
-  - name: check products loaded or not
-    ansible.builtin.command: mongosh --host mongodb.daws84s.site --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
+  - name: check products loaded or not # we already know no bulting ansible module we use command moduole
+    ansible.builtin.command: mongosh --host mongodb.daws84s.site --eval 'db.getMongo().getDBNames(). indexOf("catalogue")'
     register: catalogue_output
 
   - name: print catalogue output
     ansible.builtin.debug:
       msg: "{{ catalogue_output }}"
 
-  - name: load products
+  - name: load products # so this also same as commad module but here we use shell because there are redirection (<> etc)special charecters so in this case we use shell module.
     ansible.builtin.shell: mongosh --host mongodb.daws84s.site < /app/db/master-data.js
     when: catalogue_output.stdout | int < 0
   
