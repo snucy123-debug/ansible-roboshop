@@ -28,8 +28,8 @@
 
   - name: download catalogue code
     ansible.builtin.get_url: its for download the url in /tmp/catalogue.zip
-      url: https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
-      dest: /tmp/catalogue.zip
+    url: https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
+    dest: /tmp/catalogue.zip
 
   # this module thinks file exist on ansible control server, needs to extract on to remote machine
   # remote_src: yes means files already exist in catalogue server
@@ -47,8 +47,6 @@
     ansible.builtin.copy:
     src: catalogue.service
     dest: /etc/systemd/system/catalogue.service
-    tags:
-    - copy
 
   - name: systemctl deamon reload
     ansible.builtin.systemd_service:
@@ -70,8 +68,8 @@
       name: mongodb-mongosh
       state: present
 
-  - name: check products loaded or not # we already know no bulting ansible module we use command moduole
-    ansible.builtin.command: mongosh --host mongodb.daws84s.site --eval 'db.getMongo().getDBNames(). indexOf("catalogue")'
+  - name: check products loaded or not
+    ansible.builtin.command: mongosh --host mongodb.daws84s.site --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
     register: catalogue_output
 
   - name: print catalogue output
