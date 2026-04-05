@@ -27,9 +27,9 @@
       home: /app
 
   - name: download catalogue code
-    ansible.builtin.get_url: its for download the url in /tmp/catalogue.zip
-    url: https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
-    dest: /tmp/catalogue.zip
+    ansible.builtin.get_url:  #its for download the url in /tmp/catalogue.zip
+      url: https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
+      dest: /tmp/catalogue.zip
 
   # this module thinks file exist on ansible control server, needs to extract on to remote machine
   # remote_src: yes means files already exist in catalogue server
