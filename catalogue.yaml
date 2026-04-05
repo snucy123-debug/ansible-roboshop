@@ -78,7 +78,7 @@
       msg: "{{ catalogue_output }}"
 
   - name: load products 
-    ansible.builtin.shell: mongosh --host mongodb.daws84s.site < /app/db/master-data.js
+    ansible.builtin.shell: mongosh --host mongodb.vkdevin.online < /app/db/master-data.js
     when: catalogue_output.stdout | int < 0
 
     # so this also same as commad module but here we use shell because there are redirection (<> etc)special charecters so in this case we use shell module.
