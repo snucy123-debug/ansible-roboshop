@@ -69,15 +69,18 @@
       state: present
 
   - name: check products loaded or not
-    ansible.builtin.command: mongosh --host mongodb.daws84s.site --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
+    ansible.builtin.command:
+      cmd: mongosh --host mongodb.daws84s.site --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
     register: catalogue_output
 
   - name: print catalogue output
     ansible.builtin.debug:
       msg: "{{ catalogue_output }}"
 
-  - name: load products # so this also same as commad module but here we use shell because there ar       redirection (<> etc)special charecters so in this case we use shell module.
+  - name: load products 
     ansible.builtin.shell: mongosh --host mongodb.daws84s.site < /app/db/master-data.js
     when: catalogue_output.stdout | int < 0
+
+    # so this also same as commad module but here we use shell because there are redirection (<> etc)special charecters so in this case we use shell module.
   
   
