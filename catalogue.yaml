@@ -82,5 +82,9 @@
     when: catalogue_output.stdout | int < 0
 
     # so this also same as commad module but here we use shell because there are redirection (<> etc)special charecters so in this case we use shell module.
+
+    # one more thing if u want to check its installed correctly or not use in catalogue server :
+    #systemctl status catalogue
+    #netstat -lntl for porn number it should bne 0000
   
   
