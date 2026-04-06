@@ -28,3 +28,25 @@
     ansible.builtin.service:
       name: mongod
       state: restarted
+
+#  #---------------output----------
+
+# # # So If we use below command then then it will run in background it just gives 4 digits number.like "14564"
+
+# #  nohup ansible-playbook -i inventory.ini -e ansible_user=ec2-user -e ansible_password=DevOps321 mongodb.yaml  &>> /home/ec2-user/mongo.db.log &
+
+# # [1] 14564
+
+# -----------------------------------------------------
+# To check how its doing the given task use "tail -f logfile"
+# example : tail -f  /home/ec2-user/mongo.db.log &     ------> this is the command 
+# [1] 14701
+
+# TASK [allow remote connections] ************************************************
+# changed: [mongodb.vkdevin.online]
+
+# TASK [restart mongodb] *********************************************************
+# changed: [mongodb.vkdevin.online]
+
+# PLAY RECAP *********************************************************************
+# mongodb.vkdevin.online     : ok=6    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
