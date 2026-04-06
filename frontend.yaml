@@ -53,10 +53,24 @@
 
   - name: copy roboshop nginx conf
     ansible.builtin.copy:
-      src: nginx.conf
-      dest: /etc/nginx/nginx.conf
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+    force: yes
 
   - name: restart nginx
     ansible.builtin.service:
       name: nginx
       state: restarted
+
+
+
+ # 🔥 NGINX CONFIG FLOW (REMINDER)
+# 1. Remove default nginx.conf from server
+# 2. Copy our custom nginx.conf from local → /etc/nginx/nginx.conf
+# 3. If we change nginx.conf locally → MUST run playbook again
+# 4. After copying → ALWAYS restart nginx service
+# 5. Without restart → changes will NOT reflect
+
+# 👉 Commands reminder:
+# ansible-playbook -i inventory.ini frontend.yaml
+# sudo systemctl restart nginx
