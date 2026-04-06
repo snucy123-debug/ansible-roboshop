@@ -19,8 +19,7 @@
       name: nginx
       state: started
       enabled: yes
-
-      # so below 4 commands  there we need to clear all the dat indie /usr/share/nginx/html everything inside it but we dont have any command to clear it so what we did we first deleted it [ 1 st command ] and then we created same directory [ 2nd command ]  and downloaded the froontend code in /tmp/frontend.zip file , and will unzip that code [4th command] into /usr/share/nginx/html this directory 
+  # so below 4 commands  there we need to clear all the dat indie /usr/share/nginx/html everything inside it but we dont have any command to clear it so what we did we first deleted it [ 1 st command ] and then we created same directory [ 2nd command ]  and downloaded the froontend code in /tmp/frontend.zip file , and will unzip that code [4th command] into /usr/share/nginx/html this directory 
 
   - name: remove html directory   
     ansible.builtin.file:
