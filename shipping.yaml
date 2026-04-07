@@ -96,6 +96,7 @@
       state: restarted
       name: shipping
   
+  # --TAGS------►KEYWORD
 
 # # Here we used tags to dont repeat code from the starting while doing i got an error in thiis line so if i do changes and run it in linux server it will run the playbook from first it will be soo waste of time soo better you can use tags module
 
@@ -106,3 +107,10 @@
 
 # # So if we run like this it will run from their only soo here  we used it in 12 task check.
 
+## ags must be at the same level as name and the module, not nested under the module.
+# - name: import data
+#  tags: 
+#   - import
+#   community.mysql.mysql_db:
+#      name: all
+#      login_user: root
