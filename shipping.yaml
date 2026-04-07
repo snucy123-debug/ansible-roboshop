@@ -7,10 +7,10 @@
     ansible.builtin.dnf:
       name: "{{ item }}"
       state: installed
-    loop:       # by using loop we can install multiple packages or tools at a time
+    loop:
     - maven
     - mysql
-       
+    
   - name: install PyMySQL and cryptography 
     ansible.builtin.pip:
       name: "{{ item }}"
@@ -81,7 +81,7 @@
       name: all
       login_user: root
       login_password: RoboShop@1
-      login_host: mysql.daws84s.site
+      login_host: mysql.vkdevin.online
       state: import
       target: "{{ item }}"
     loop:
