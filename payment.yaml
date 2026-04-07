@@ -44,8 +44,6 @@
 
   - name: copy payment service
     ansible.builtin.copy:
-     tags:
-      - run
      src: payment.service
      dest: /etc/systemd/system/payment.service
   
