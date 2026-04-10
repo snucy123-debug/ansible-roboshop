@@ -1,7 +1,7 @@
 
 - name: install redis component
   hosts: redis
-  become: yes #for sudo root
+  become: yes # for sudo access
   tasks:
   - name: disable redis default module
     ansible.builtin.command: dnf module disable redis -y
@@ -15,13 +15,13 @@
       state: present
 
   - name: allow remote connections
-    ansible.builtin.replace:        # this module is for change the word.
+    ansible.builtin.replace: # this module is for change the word
       path: /etc/redis/redis.conf
       regexp: '127.0.0.1'
       replace: '0.0.0.0'
 
   - name: disable protected mode
-    ansible.builtin.lineinfile:    # this will change the line 
+    ansible.builtin.lineinfile: # this module is for change the line
       path: /etc/redis/redis.conf
       regexp: 'protected-mode'
       line: protected-mode no

@@ -53,7 +53,7 @@
 
   - name: copy roboshop nginx conf
     tags:     # tags which i kept
-     - frontend
+     -frontend
     ansible.builtin.copy:
       src: nginx.conf
       dest: /etc/nginx/nginx.conf
