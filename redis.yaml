@@ -1,7 +1,7 @@
 
 - name: install redis component
   hosts: redis
-  become: yes # for sudo access
+  become: yes  # for sudo access
   tasks:
   - name: disable redis default module
     ansible.builtin.command: dnf module disable redis -y
